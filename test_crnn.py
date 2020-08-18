@@ -8,7 +8,7 @@ from utlis.net_cfg_parser import parser_cfg_file
 class Test_CRNN(object):
     def __init__(self, batch_size=None):
         net_params, train_params = parser_cfg_file('./net.cfg')
-        self._model_save_path = str(net_params['model_save_path'])
+        self._model_save_path = str(train_params['model_save_path'])
         self.input_img_height = int(net_params['input_height'])
         self.input_img_width = int(net_params['input_width'])
         if batch_size is None:
@@ -33,7 +33,7 @@ class Test_CRNN(object):
 
         self.sess = tf.Session()
         saver = tf.train.Saver()
-        saver.restore(self.sess, "/home/tony/ocr/model/93/ckpt")
+        saver.restore(self.sess, "./model/ckpt")
 
     def _get_input_img(self, img_path_list):
 
@@ -115,9 +115,9 @@ class Test_CRNN(object):
 
 if __name__ == "__main__":
 
-    test_img_list = ['/home/tony/ocr/test_data/00023.jpg']
-    a = Test_CRNN()
-    a.test_img(test_img_list)
+    test_img_list = ['./samples/00032.jpg']
+    a = Test_CRNN(len(test_img_list))
+    a.test_img(test_img_list,True)
 
     # test_list = []
     # res_list = []
